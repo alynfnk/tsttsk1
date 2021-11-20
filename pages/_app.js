@@ -1,4 +1,5 @@
 import '../styles/global.scss'
+import '../helpers/intercept'
 import UIkit from 'uikit';
 
 

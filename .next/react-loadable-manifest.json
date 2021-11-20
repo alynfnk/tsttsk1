@@ -1,1 +1,8 @@
-{}
+{
+  "index.js -> ../components/OurUsers/OurUsers": {
+    "id": "./components/OurUsers/OurUsers.js",
+    "files": [
+      "static/chunks/components_OurUsers_OurUsers_js.js"
+    ]
+  }
+}

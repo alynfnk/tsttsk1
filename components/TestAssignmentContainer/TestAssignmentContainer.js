@@ -1,8 +1,8 @@
-import styles from '../styles/SecondContainer.module.scss'
-import SignUpButton from "../components/SignUpButton";
+import styles from './TestAssignmentContainer.module.scss'
+import SignUpButton from "../SignUpButton";
 
 
-const SecondContainer = ({children}) => {
+const TestAssignmentContainer = ({children}) => {
     return (
         <div className={styles.frontendContainer}>
             <div className={styles.container}>
@@ -20,4 +20,4 @@ const SecondContainer = ({children}) => {
         </div>
     );
 };
-export default SecondContainer;
+export default TestAssignmentContainer;

@@ -1,8 +1,8 @@
-import styles from '../styles/ThirdContainer.module.scss'
-import SignUpButton from "../components/SignUpButton";
-import picture from "../public/images/programmer.svg";
+import styles from './GetAcquaintedContainer.module.scss'
+import SignUpButton from "../SignUpButton";
+import picture from "../../public/images/programmer.svg";
 
-const ThirdContainer = ({children}) => {
+const GetAcquaintedContainer = ({children}) => {
     return (
 
         <div className={styles.container}>
@@ -28,4 +28,4 @@ const ThirdContainer = ({children}) => {
 
         );
 };
-export default ThirdContainer;
+export default GetAcquaintedContainer;

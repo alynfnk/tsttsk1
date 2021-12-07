@@ -16,22 +16,25 @@ const Haeder = ({children}) => {
             </Head>
             <header>
                 <div className={styles.container}>
-                    <div className={styles.navbar}>
+                    <nav className={styles.navbar}>
                         <div className="navbar-left">
                             <div className="header-logo">
                                 <img src={logoImg.src} alt="logo" />
                             </div>
                         </div>
                         <div className="uk-navbar-right">
-                            <div className="navbar">
-                                <MenuItem href={'/'} text={'About Me'}/>
+                            <div className={styles.menu}>
+                                <MenuItem href='#ourUsers' text={'About Me'}/>
                                 <MenuItem href={'/'} text={'Relationships'}/>
                                 <MenuItem href={'/'} text={'Requirements'}/>
-                                <MenuItem href={'/'} text={'Users'}/>
-                                <MenuItem href={'/'} text={'Sign Up'}/>
+                                <MenuItem href='#ourUsers' text={'Users'}/>
+                                <MenuItem href='#register' text={'Sign Up'}/>
                             </div>
+                            {/* <div className={styles.burgerBtn}>
+                                <span />
+                            </div> */}
                         </div>        
-                    </div>
+                    </nav>
                 </div>
             </header>
             <div>{children}</div>   

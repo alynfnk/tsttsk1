@@ -10,9 +10,4 @@ async function getToken() {
 
 const TokenRequests = { getToken };
 
-(async function IIFE() {
-  console.log(await getToken());
-  console.log((await getToken()).token);
-})();
-
 export default TokenRequests; 

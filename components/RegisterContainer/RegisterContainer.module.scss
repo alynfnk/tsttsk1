@@ -6,3 +6,31 @@
 .registerTitle, .registerSubTitle{
     text-align: center;
 }
+.textArea{
+    display: flex;
+    flex-direction: column;
+    width: 380px;
+    margin: auto;
+    row-gap: 50px;
+    margin-top: 32px;
+}
+.radioArea{
+    width: 380px;
+    margin: auto;
+    legend{
+        margin-top: 43px;
+        margin-bottom: 11px;
+        color: rgba(0, 0, 0, 0.87);
+    }
+}
+.inputPhoto{
+    width: 380px;
+    margin: auto;
+    margin-top: 48px;
+}
+.registerBtn{
+    text-align: center;
+}
+.textFieldWithError{
+    background: red;
+}

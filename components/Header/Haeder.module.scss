@@ -1,11 +1,39 @@
 .container{
-
     max-width: 1170px;
     width: 100%;
     height: 60px;
     margin: 0 auto;
 
 }
+
+// .burgerBtn{
+//     width: 18px;
+//     height: 12px;
+//     position: relative;
+//     &::before{
+//         content: '';
+//         position: absolute;
+//         top: 0;
+//         width: 18px;
+//         height: 2px;
+//         background-color: #000000;
+//     }
+//     &::after{
+//         content: '';
+//         position: absolute;
+//         bottom: 0;
+//         width: 18px;
+//         height: 2px;
+//         background-color: #000000;
+//     }
+//     span{
+//         position: absolute;
+//         top: 5px;
+//         width: 18px;
+//         height: 2px;
+//         background-color: #000000;
+//     }
+// }
 
 .navbar{
 

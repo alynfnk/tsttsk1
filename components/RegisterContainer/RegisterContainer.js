@@ -1,4 +1,4 @@
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import "yup-phone";
@@ -6,7 +6,17 @@ import SignUpButton from "../SignUpButton";
 import PositionsRequests from "../../helpers/positions";
 import UserRequests from "../../helpers/users";
 import styles from "./RegisterContainer.module.scss";
-import TextField from '@mui/material/TextField'
+import TextField from '@mui/material/TextField';
+import getToken from '../../helpers/token';
+import Radio from '@mui/material/Radio';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import PropTypes from 'prop-types';
+import RadioGroup, { useRadioGroup } from '@mui/material/RadioGroup';
+import { styled, makeStyles } from '@mui/material/styles';
+import { style } from "@mui/system";
+
 
 
 export const VALIDATION_SCHEMA = yup.object().shape({
@@ -27,8 +37,11 @@ export const VALIDATION_SCHEMA = yup.object().shape({
   photo: yup.mixed().required("photo is required."),
 });
 
+
+
 const RegisterContainer = () => {
-  const [positions, setPositions] = useState([]);
+  const [positions, setPositions] = useState([]);  
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -44,13 +57,80 @@ const RegisterContainer = () => {
   const onSubmit = async (values) => {
     try {
       await UserRequests.postUser(values);
+        // TODO: fetchUser()
     } catch (e) {
+      // TODO: handle errors
       alert(e.message);
     }
   };
+  const submitForm = async (data) => {
+    const formData = new FormData();
+
+    for (const keyData in data) {
+      const value = data[keyData]
+      formData.append(keyData, value)
+    }
+
+    await onSubmit(formData)
+    // sendSending(true);
+    // const token = await getToken();
+    // const formData = new FormData();
+    // const fileField  = document.querySelector('input[type="file"]');
+    // ['position_id', 'name', 'email'].map((key) => {
+    //   formData.append(key,data[key]);
+    //   return null;
+    // });
+    // formData.append('phone', data.phone.replace(/[()-]/g, ''));
+    // formData.append('photo', fileField.files[0]);
+    // onSubmit(formData); 
+    // const usersRes = setUser(formData, token.token);
+    // if (usersRes.success) {
+    //   setSending(false);
+    //   setOpen(true);
+    //   setSendSuccess({
+    //     serverSuccess: true,
+    //     validatorSuccess: true, 
+    //   });
+    // } else {
+    //   setSending(false);
+    //   setOpen(true);
+    //   setSendSuccess({
+    //     serverSuccess: true,
+    //     validatorSuccess:false,
+    //   });
+    // } 
+    // await onSubmit(data);
+  };
+
+  const StyledFormControlLabel = styled((props) => <FormControlLabel {...props} />)(
+    ({ theme, checked }) => ({
+      '.MuiFormControlLabel-label': checked && {
+        color: theme.palette.primary.main,
+      },
+    }),
+  );
+  
+  function MyFormControlLabel(props) {
+    const radioGroup = useRadioGroup();
+  
+    let checked = false;
+  
+    if (radioGroup) {
+      checked = radioGroup.value === props.value;
+    }
+  
+    return <StyledFormControlLabel checked={checked} {...props} />;
+  }
+  
+  MyFormControlLabel.propTypes = {
+    /**
+     * The value of the component.
+     */
+    value: PropTypes.any,
+  };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} id={"register"}>
       <div className={styles.registerTitle}>
         <h1>Register to get a work</h1>
       </div>
@@ -65,7 +145,7 @@ const RegisterContainer = () => {
           position_id: "",
           photo: "",
         }}
-        onSubmit={onSubmit}
+        onSubmit={submitForm}
         validationSchema={VALIDATION_SCHEMA}
       >
         {(props) => {
@@ -79,73 +159,54 @@ const RegisterContainer = () => {
             setFieldValue,
           } = props;
           return (
-            <form onSubmit={handleSubmit}>
-              {/* <input
-                id="name"
-                placeholder="Your name"
-                type="text"
-                value={values.name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              /> */}
-              <TextField id="name" label="Your Name" variant="outlined" value={values.name} onChange={handleChange}
-                onBlur={handleBlur} />
-              {errors.name && touched.name && (
-                <p className="error">{errors.name}</p>
-              ) }
-              <input
-                id="email"
-                placeholder="Email"
-                type="text"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.email && touched.email && (
-                <p className="error">{errors.email}</p>
-              )}
-              <input
-                id="phone"
-                placeholder="Phone"
-                type="text"
-                value={values.phone}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {errors.phone && touched.phone && (
-                <p className="error">{errors.phone}</p>
-              )}
-              <div>
-                {positions.map(({ id, name }) => {
-                  return (
-                    <React.Fragment key={name}>
-                      <input
-                        type="radio"
-                        id={id + name}
-                        value={name}
-                        checked={values.position_id === id}
-                        onChange={() => setFieldValue("position_id", id)}
-                      />
-                      <label htmlFor={id + name}>{name}</label>
-                    </React.Fragment>
-                  );
-                })}
+            <Form onSubmit = {handleSubmit}>
+              <div className={styles.textArea}>
+                <TextField className={errors.name ? styles.textFieldWithError : " "}  id="name" label="Your Name" variant="outlined" value={values.name} onChange={handleChange}
+                  onBlur={handleBlur} helperText={errors.name && touched.name ? errors.name : ''}/>                              
+                <TextField id="email" label="Email" variant="outlined" value={values.email} onChange={handleChange}
+                  onBlur={handleBlur} helperText={errors.email && touched.email ? errors.email : ''}/>
+                <TextField id="phone" label="Phone" variant="outlined" value={values.phone} onChange={handleChange}
+                  onBlur={handleBlur} helperText={errors.phone && touched.phone ? errors.phone : ''}/>
               </div>
+              <div className={styles.radioArea}>
+              <FormLabel component="legend">Select your position</FormLabel>        
+                <RadioGroup
+                  aria-label="position"
+                  defaultValue={1}
+                  value={values.position_id}            
+                  name="radio-buttons-group"
+                  
+                  onChange={ (data, value) => {
+                    setFieldValue('position_id', value);
+                  }
+                  }
+                >
+                  {positions.map(({ id, name }) => {
+                    return (
+                      <FormControlLabel value={id}  control={<Radio />} label={name} />
+                    )})}
+
+                </RadioGroup>
+              </div>              
               {errors.position_id && touched.position_id && (
                 <p className="error">{errors.position_id}</p>
               )}
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(event) => {
-                  setFieldValue("photo", event.currentTarget.files[0]);
-                }}
-              />
-              {errors.photo && touched.photo && (
-                <p className="error">{errors.photo}</p>
-              )}
-              <SignUpButton />
-            </form>
+              <div className={styles.inputPhoto}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(event) => {
+                    setFieldValue("photo", event.currentTarget.files[0]);
+                  }}
+                />
+                {errors.photo && touched.photo && (
+                  <p className="error">{errors.photo}</p>
+                )}
+              </div>
+              <div className={styles.registerBtn}>
+                <SignUpButton  disabled={errors.name}/>
+              </div>
+            </Form>
           );
         }}
       </Formik>

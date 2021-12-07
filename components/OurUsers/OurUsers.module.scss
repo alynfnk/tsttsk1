@@ -14,6 +14,8 @@
     flex-wrap: wrap;
     padding: 0;
     margin-bottom: 18px;
+    justify-content: center;
+    width: 100%;
     li{
         list-style-type: none;
         width: 370px;
@@ -22,6 +24,7 @@
         text-align: center;
         padding: 36px 30px 0 30px;
         border-radius: 10px;
+        width: calc(100% / 3.3);
     }
 }
 .userPhoto{
@@ -75,5 +78,39 @@
             background: rgba(180, 180, 180, 1);
             color: rgba(255, 255, 255, 1);    
         }
+    }
+}
+.userPhoto div{
+    width: 70px;
+    height: 70px;
+    margin: auto;
+}
+@media only screen and (max-width: 1290px){
+    .container{
+        width: auto;
+        margin-left: 60px;
+        margin-right: 60px;
+    }
+  
+}
+@media only screen and (max-width: 768px){
+    .container{
+        width: auto;
+        margin-left: 32px;
+        margin-right: 32px;
+    }    
+    .userList li{
+        width: calc(100%/2.2);
+    }
+
+}
+@media only screen and (max-width: 360px){
+    .container{
+        width: auto;
+        margin-left: 16px;
+        margin-right: 16px;
+    }    
+    .userList li{
+        width: 100%;
     }
 }

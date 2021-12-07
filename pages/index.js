@@ -7,6 +7,7 @@ import RegisterContainer from "../components/RegisterContainer/RegisterContainer
 const OurUsers = dynamic(() => import("../components/OurUsers/OurUsers"), {
   ssr: false,
 });
+import Footer from "../components/Footer/Footer";
 import TokenRequests from "../helpers/token";
 import Haeder from "../components/Header/Header";
 
@@ -25,6 +26,7 @@ const Home = () => {
       <GetAcquaintedContainer />
       <OurUsers />
       <RegisterContainer />
+      <Footer />
     </>
   );
 };
